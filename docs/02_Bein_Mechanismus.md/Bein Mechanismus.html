@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1,user-scalable=no">
+<meta name="description" content="Wiederholung der Lehrinhalte des Wahlpflichtmoduls Mechanismentechnik">
+
+<meta name="date" content="Fri Jan 01 2021 00:00:00 GMT+0100 (West Africa Standard Time)">
+<meta name="keywords" content="Mechanismentechnik,Bewegungs- und Kraftübertragung,Getriebekinematik,Schleifengleichung,Viergelenk,Lageanalyse,Übertragungsfunktion,Koppelkurven,Geschwindigkeit,Beschleunigung,g2,mec2">
+<title>Analyse zur Optimierung und Simulation eines Strandbeest-Mechanismus mit mec-2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/tomorrow-night-bright.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.css">
+<link rel="stylesheet" href="../theme/style.css">
+</head>
+<body id="top">
+<main>
+  <nav>
+<p><a href="../index.html"><img src="../img/cover.gif"></img></a></p>
+<h2 id="inhaltsverzeichnis">Inhaltsverzeichnis</h2>
+<ol start="1">
+    <li><details><summary markdown="span">Einführung</summary>
+        <ol>
+        <li><a href="../01_Einleitung.md/Einleitung.html">Einleitung</a></li> 
+        </ol>
+    </details></li>
+</ol>
+<ol start="2">
+    <li><details><summary markdown="span">Bein-Mechanismus</summary>
+    <ol>
+        <li><a href="../02_Bein_Mechanismus.md/Bein Mechanismus.html">Bein-Mechanismus</a></li> 
+    </ol>
+    </details></li>
+</ol>
+<ol start="3">
+    <li><details><summary markdown="span">Analyse</summary>
+    <ol>
+        <li><a href="../03_Analyse_des_Standbeest_Mechanismus.md/Analyse.html">Analyse des Strandbeest-Mechanismus</a></li>
+    </ol>
+    </details></li>
+</ol>
+<ol start="4">
+    <li><details><summary markdown="span">Optimierung</summary>
+    <ol>
+        <li><a href="../04_Optimierung_des_Mechanismus.md/Optimierung.html">Optimierung des Mechanismus</a></li>
+    </ol>
+    </details></li>
+</ol>
+<ol start="5">
+    <li><details><summary markdown="span">Schluss</summary>
+    <ol>
+        <li><a href="../05_Schluss.md/Schluss.html">Schluss</a></li>
+    </ol>
+    </details></li>
+</ol>
+<ol start="6">
+    <li><details><summary markdown="span">Quellen</summary>
+    <ol>
+        <li><a href="../06_Sources.md/Schluss.html">Sources</a></li>
+    </ol>
+    </details></li>
+</ol>
+</nav>
+
+<article>
+
+<header>
+<h1>Analyse zur Optimierung und Simulation eines Strandbeest-Mechanismus mit mec-2</h1>
+<h3>Bein-Mechanismus</h3>
+
+
+<h5>Jan 2021</h5>
+<h5><b>Keywords:</b> Mechanismentechnik, Bewegungs- und Kraftübertragung, Getriebekinematik, Schleifengleichung, Viergelenk, Lageanalyse, Übertragungsfunktion, Koppelkurven, Geschwindigkeit, Beschleunigung, g2, mec2</h5>
+</header>
+<h2 id="ii-bein-mechanismus">II.  Bein-Mechanismus</h2>
+<h3 id="1-tschebyschew-lambda-mechanismus">1.  Tschebyschew-Lambda-Mechanismus</h3>
+<p>Der Tschebyschew-Lambda-Mechanismus ist ein Viergelenkmechanismus, der eine Drehbewegung in eine ungefähre geradlinige Bewegung mit ungefähr konstanter Geschwindigkeit umwandelt. Das genaue Design basiert auf Geradheit, Nichtbeschleunigung und Antriebsdrehzahl, die im linearen Teil des gesamten Bogens verwendet werden.</p>
+<figure>
+<img src="../Bilder/Tschebyschewlenker.png">
+<h4 id="abb-1-tschebyschewlenker-und-tschebyschew-lambda-mechanismus"><strong>Abb. 1:</strong> Tschebyschewlenker und Tschebyschew-Lambda-Mechanismus</h4>
+</figure>
+<p>Der Tschebyschew-Lambda-Mechanismus (Abbildung rechts) ist ein Roberts’sches Ersatzgetriebe, welches aus dem Tschebyschewlenker (Abbildung  links) hervorgeht. [RWT-19, S.613].
+Die Gliedlängen der Kurbel a, der Koppel b, der Schwinge c und des Gestelles d sind hierbei in Längeneinheiten. [RWT-19, S.162]</p>
+<p>•	Kurbel        a = 1</p>
+<p>•	Koppel       b = 8</p>
+<p>•	Schwinge   c = 4</p>
+<p>•	Gestell       d = 3</p>
+<p>Die umlauffähige Kurbel a, treibt über die Koppel b die Schwinge c an. Eine Besonderheit des Viergelenks besteht darin, dass die Schwinge c mit der Koppel b nicht an deren Endpunkt, sondern an deren Mittelpunkt verbunden ist. Dies ist in Abbildung 3-4 aus der Beziehung b1 = b2 ersichtlich. Eine weitere Besonderheit stellt die Tatsache dar, dass durch die Beziehung c = b1 eine gleichschenklige Kurbelschwinge entsteht. [RWT-19, S.162]</p>
+<h3 id="2-klann-linkage">2.  Klann linkage</h3>
+<p>Der Klann-Mechanismus wurde am 5. Februar 1999 von Joseph C Klann erfunden und für den erstmals zu patente angemeldet. Die von ihm erzeugte Gangbewegung ist dem Gang des Tieres mit Beinen nachempfunden.</p>
+<p>Sechs Glieder (a, b, c, d, e, f) sind durch axiale Klammern miteinander verbunden. Der Mechanismus wird von einer rotierenden Kurbel a angetrieben. Diese führt das Bein e durch die Pleuelstange d, deren Vorwärts- und Rückwärtsbewegung durch den unteren Kipphebel c begrenzt ist. Die Begrenzung der Vorwärts- und Rückwärtsbewegung des Beines e wird durch den oberen Kipphebel b bereitgestellt. Schließlich beide Die Kurbel a, der obere Kipphebel b und der untere Kipphebel c sind axial mit dem Rahmen f verbunden.</p>
+<figure>
+<img src="../Bilder/Klann.png">
+<h4 id="abb-2-klann-mechanismuns"><strong>Abb. 2:</strong> Klann-Mechanismuns</h4>
+</figure>
+<p>Der Mechanismus besteht aus sechs Gliedern. Abbildung 2 [PAT-01,S.1] Diese sind:</p>
+<p>•	Die Kurbel <em>a</em></p>
+<p>•	Der obere Kipphebel <em>b</em></p>
+<p>•	Der untere Kipphebel <em>c</em></p>
+<p>•	Der Verbindungsstab <em>d</em></p>
+<p>•	Das Bein <em>e</em></p>
+<p>•	Der Rahmen <em>f</em></p>
+<h3 id="3-theo-jansens-strandbeest-mechanismus">3.  Theo Jansens: Strandbeest-Mechanismus</h3>
+<p>Dieser Mechanismus wurde vom Künstler Theo Jansen entwickelt und wird seitdem verwendet, um Kunstobjekte anzutreiben, die er &quot;Strandbeest&quot; nennt. Der Künstler spricht über seine &quot;Strandbeests&quot;.</p>
+<p><em>„Seit 1990 beschäftige ich mich mit der Schaffung neuer Lebensformen. Nicht Pollen oder Samen, sondern gelbe Kunststoffrohre werden als Grundmaterial dieser neuen Wesen verwendet. Ich mache Skelette, die im Wind laufen können, damit sie nicht essen müssen. Im Laufe der Zeit haben diese Skelette die Elemente wie Sturm und Wasser immer besser überstanden, und schließlich möchte ich diese Tiere in Herden an den Stränden aussetzen, und sie werden ihr eigenes Leben führen.“ [STB-19]</em></p>
+<p>Bei dem Jansen-Mechanismus (Abbildung 3) handelt es sich um zwei Viergelenkgetriebe (A0ABB0 mit den zugehörigen Gliedern a, b, c, d und A0ACB0 mit den zugehörigen Gliedern a, e, f und d). die zwei Viergelenkgetriebe werden durch die Kurbel A0A bzw. a angetrieben. Der Gliedpunkt E wird mittels der Glieder i und j mit den Gliedpunkten D und C verbunden. Die Länge der Verbindungen ist konstant, sie sind jedoch beweglich mit dem Verbindungspunkt verbunden. Schließlich wird der Term j aufgrund zweier Längen k und l zu einem konstanten Dreieck mit dem Gliedpunkt F erweitert. Die Schreitbewegung wird durch seine bahnkurve dargestellt. [DAN-13, S.476].</p>
+<figure>
+<img src="../Bilder/Strandbeest.png">
+<h4 id="abb-3-strandbeest-mechanismus"><strong>Abb. 3:</strong> Strandbeest-Mechanismus</h4>
+</figure>
+
+</article>
+</main>
+<script src="../js/g2.html.js"></script>
+<script src="../js/mec2.html.js"></script>
+</body>
+</html>

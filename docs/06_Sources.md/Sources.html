@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1,user-scalable=no">
+<meta name="description" content="Wiederholung der Lehrinhalte des Wahlpflichtmoduls Mechanismentechnik">
+
+<meta name="date" content="Fri Jan 01 2021 00:00:00 GMT+0100 (West Africa Standard Time)">
+<meta name="keywords" content="Mechanismentechnik,Bewegungs- und Kraftübertragung,Getriebekinematik,Schleifengleichung,Viergelenk,Lageanalyse,Übertragungsfunktion,Koppelkurven,Geschwindigkeit,Beschleunigung,g2,mec2">
+<title>Analyse zur Optimierung und Simulation eines Strandbeest-Mechanismus mit mec-2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/tomorrow-night-bright.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.css">
+<link rel="stylesheet" href="../theme/style.css">
+</head>
+<body id="top">
+<main>
+  <nav>
+<p><a href="../index.html"><img src="../img/cover.gif"></img></a></p>
+<h2 id="inhaltsverzeichnis">Inhaltsverzeichnis</h2>
+<ol start="1">
+    <li><details><summary markdown="span">Einführung</summary>
+        <ol>
+        <li><a href="../01_Einleitung.md/Einleitung.html">Einleitung</a></li> 
+        </ol>
+    </details></li>
+</ol>
+<ol start="2">
+    <li><details><summary markdown="span">Bein-Mechanismus</summary>
+    <ol>
+        <li><a href="../02_Bein_Mechanismus.md/Bein Mechanismus.html">Bein-Mechanismus</a></li> 
+    </ol>
+    </details></li>
+</ol>
+<ol start="3">
+    <li><details><summary markdown="span">Analyse</summary>
+    <ol>
+        <li><a href="../03_Analyse_des_Standbeest_Mechanismus.md/Analyse.html">Analyse des Strandbeest-Mechanismus</a></li>
+    </ol>
+    </details></li>
+</ol>
+<ol start="4">
+    <li><details><summary markdown="span">Optimierung</summary>
+    <ol>
+        <li><a href="../04_Optimierung_des_Mechanismus.md/Optimierung.html">Optimierung des Mechanismus</a></li>
+    </ol>
+    </details></li>
+</ol>
+<ol start="5">
+    <li><details><summary markdown="span">Schluss</summary>
+    <ol>
+        <li><a href="../05_Schluss.md/Schluss.html">Schluss</a></li>
+    </ol>
+    </details></li>
+</ol>
+<ol start="6">
+    <li><details><summary markdown="span">Quellen</summary>
+    <ol>
+        <li><a href="../06_Sources.md/Schluss.html">Sources</a></li>
+    </ol>
+    </details></li>
+</ol>
+</nav>
+
+<article>
+
+<header>
+<h1>Analyse zur Optimierung und Simulation eines Strandbeest-Mechanismus mit mec-2</h1>
+<h3>Sources</h3>
+
+
+<h5>Jan 2021</h5>
+<h5><b>Keywords:</b> Mechanismentechnik, Bewegungs- und Kraftübertragung, Getriebekinematik, Schleifengleichung, Viergelenk, Lageanalyse, Übertragungsfunktion, Koppelkurven, Geschwindigkeit, Beschleunigung, g2, mec2</h5>
+</header>
+<h2 id="sources">Sources</h2>
+<p>[Gös-17]	S. Gössner: Mechanismentechnik, Vektorielle Analyse ebener Mechanismen Berlin: Logos Verlag, 2017
+Johannes Volmer, Jürgen Schönherr, Waldemar Raths, Walter Neßler, Wolfgang Müller, Peter Jacobi, Christian Hammerschmidt, Reimar Brock: Getriebetechnik, Grundlagen. Berlin: Verlag Technik GmbH, 1995
+<a href="https://www.ilias.fh-dortmund.de/ilias/goto_ilias-fhdo_crs_672364.html">https://www.ilias.fh-dortmund.de/ilias/goto_ilias-fhdo_crs_672364.html</a> (Stand: 12.09.2019)
+[DAN-13]	Jürgen Dankert, Helga Dankert: Technische Mechanik, Statik, Festigkeitslehre, Ki- nematik/Kinetik Wiesbaden: Springer Vieweg, 2013
+<a href="https://www.strandbeest.com/explains">https://www.strandbeest.com/explains</a> link: <a href="https://youtu.be/FFS-2axFo1Y">https://youtu.be/FFS-2axFo1Y</a> (Stand: 26.09.2019)
+[STB-19]	<a href="https://www.strandbeest.com">https://www.strandbeest.com</a> (Stand: 26.09.2019). United States Patent No.: US 6,260,862 B1
+[RWT-19]	<a href="https://www.igmr.rwth-aachen.de/getriebemodellsammlung/home/#ebene-">https://www.igmr.rwth-aachen.de/getriebemodellsammlung/home/#ebene-</a> getriebe/getriebebeschreibung/kurbelschwinge-tschebyschefflenker (Stand: 26.09.2019)
+<a href="https://wiki2.org/en/Leg_mechanism">https://wiki2.org/en/Leg_mechanism</a>
+<a href="https://youtu.be/Q8gUvwM89A8">https://youtu.be/Q8gUvwM89A8</a>
+<a href="http://www.tm-aktuell.de/TM5/Viergelenkketten/Strandbeest.html">http://www.tm-aktuell.de/TM5/Viergelenkketten/Strandbeest.html</a>
+<a href="https://www.jesa.com/de/dokumentation/technische-dokumentation/grossentoleranzen/">https://www.jesa.com/de/dokumentation/technische-dokumentation/grossentoleranzen/</a>
+<a href="https://www.deepl.com/home">https://www.deepl.com/home</a>
+[PAT-01,S.1]	  United States Patent No.: US 6,260,862 B1</p>
+
+</article>
+</main>
+<script src="../js/g2.html.js"></script>
+<script src="../js/mec2.html.js"></script>
+</body>
+</html>

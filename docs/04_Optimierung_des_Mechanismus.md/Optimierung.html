@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1,user-scalable=no">
+<meta name="description" content="Wiederholung der Lehrinhalte des Wahlpflichtmoduls Mechanismentechnik">
+
+<meta name="date" content="Fri Jan 01 2021 00:00:00 GMT+0100 (West Africa Standard Time)">
+<meta name="keywords" content="Mechanismentechnik,Bewegungs- und Kraftübertragung,Getriebekinematik,Schleifengleichung,Viergelenk,Lageanalyse,Übertragungsfunktion,Koppelkurven,Geschwindigkeit,Beschleunigung,g2,mec2">
+<title>Analyse zur Optimierung und Simulation eines Strandbeest-Mechanismus mit mec-2</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/tomorrow-night-bright.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.css">
+<link rel="stylesheet" href="../theme/style.css">
+</head>
+<body id="top">
+<main>
+  <nav>
+<p><a href="../index.html"><img src="../img/cover.gif"></img></a></p>
+<h2 id="inhaltsverzeichnis">Inhaltsverzeichnis</h2>
+<ol start="1">
+    <li><details><summary markdown="span">Einführung</summary>
+        <ol>
+        <li><a href="../01_Einleitung.md/Einleitung.html">Einleitung</a></li> 
+        </ol>
+    </details></li>
+</ol>
+<ol start="2">
+    <li><details><summary markdown="span">Bein-Mechanismus</summary>
+    <ol>
+        <li><a href="../02_Bein_Mechanismus.md/Bein Mechanismus.html">Bein-Mechanismus</a></li> 
+    </ol>
+    </details></li>
+</ol>
+<ol start="3">
+    <li><details><summary markdown="span">Analyse</summary>
+    <ol>
+        <li><a href="../03_Analyse_des_Standbeest_Mechanismus.md/Analyse.html">Analyse des Strandbeest-Mechanismus</a></li>
+    </ol>
+    </details></li>
+</ol>
+<ol start="4">
+    <li><details><summary markdown="span">Optimierung</summary>
+    <ol>
+        <li><a href="../04_Optimierung_des_Mechanismus.md/Optimierung.html">Optimierung des Mechanismus</a></li>
+    </ol>
+    </details></li>
+</ol>
+<ol start="5">
+    <li><details><summary markdown="span">Schluss</summary>
+    <ol>
+        <li><a href="../05_Schluss.md/Schluss.html">Schluss</a></li>
+    </ol>
+    </details></li>
+</ol>
+<ol start="6">
+    <li><details><summary markdown="span">Quellen</summary>
+    <ol>
+        <li><a href="../06_Sources.md/Schluss.html">Sources</a></li>
+    </ol>
+    </details></li>
+</ol>
+</nav>
+
+<article>
+
+<header>
+<h1>Analyse zur Optimierung und Simulation eines Strandbeest-Mechanismus mit mec-2</h1>
+<h3>Optimierung des Mechanismus</h3>
+
+
+<h5>Jan 2021</h5>
+<h5><b>Keywords:</b> Mechanismentechnik, Bewegungs- und Kraftübertragung, Getriebekinematik, Schleifengleichung, Viergelenk, Lageanalyse, Übertragungsfunktion, Koppelkurven, Geschwindigkeit, Beschleunigung, g2, mec2</h5>
+</header>
+<h2 id="iv-optimierung-des-mechanismus">IV.	Optimierung des Mechanismus</h2>
+<p>In diesem Teil der Aufgabe wird das Ziel verfolgt den Mechanismus bzw. die Gliedlängen zu ändern, um eine neue Koppelkurve zu gewinnen, die eine längere Schrittweite erreicht. Dabei sollen die in dem Teil Analyse erwähnten Anforderungen erfüllen.</p>
+<h3 id="1-simulation-vor-der-optimierung">1.	Simulation vor der Optimierung</h3>
+<figure>
+<mec-2 width="500" height="500" grid cartesian nodelabels x0="300" y0="200">
+        {
+            "nodes": [
+                {"id":"A0", "x": 80, "y": 140, "base": true}, 
+                {"id":"A", "x": 100, "y": 80},
+                {"id":"B0","x": -60, "y": 100, "base": true},
+                {"id":"B", "x": 0, "y": 160},
+                {"id":"D", "x": -120, "y": 160},
+                {"id":"E", "x": -120, "y": 40},
+                {"id":"C", "x": -10, "y": 0},
+                {"id":"F", "x": -120, "y": -120}
+            ],
+            "constraints": [
+                {"id":"a","p1":"A0","p2":"A","len":{"type":"const"},"ori":{"type":"drive","repeat":100,"Dt":3,"Dz":-1 }},
+                {"id":"b","p1":"B0","p2":"B","len":{"type":"const"}},
+                {"id":"c","p1":"B0","p2":"D","len":{"type":"const"}},
+                {"id":"d","p1":"B","p2":"D","len":{"type":"const"}},
+                {"id":"e","p1":"A","p2":"B","len":{"type":"const"}},
+                {"id":"f","p1":"D","p2":"E","len":{"type":"const"}},
+                {"id":"g","p1":"B0","p2":"C","len":{"type":"const"}},
+                {"id":"h","p1":"E","p2":"C","len":{"type":"const"}},
+                {"id":"i","p1":"E","p2":"F","len":{"type":"const"}},
+                {"id":"k","p1":"C","p2":"F","len":{"type":"const"}},
+                {"id":"l","p1":"A","p2":"C","len":{"type":"const"}}
+            ],
+            "views": [
+                {"show": "pos", "of": "F", "as": "trace", "Dt":3, "fill":"orange"},
+                {"show": "vel", "of": "F", "as": "vector"}
+            ]
+        }  
+        </mec-2>
+<h4 id="abb-5-ansicht-mit-mec-2"><strong>Abb. 5:</strong> Ansicht mit mec-2</h4>
+</figure>
+<p>Wie Sie schon in der Dokumentation von mec-2 sehen können, wird für das Schreiben der Code einen Editor gebraucht wie zum Beispiel Visual Code. Zur Visualierung dessen Ergebnis wird einen Browser gebraucht. Die dazu erstellte und geschriebene Code ist:</p>
+<pre><code class="code-line language-HTML"><div><span class="hljs-tag">&lt;<span class="hljs-name">mec-2</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"500"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"500"</span> <span class="hljs-attr">grid</span> <span class="hljs-attr">cartesian</span> <span class="hljs-attr">nodelabels</span> <span class="hljs-attr">x0</span>=<span class="hljs-string">"300"</span> <span class="hljs-attr">y0</span>=<span class="hljs-string">"200"</span>&gt;</span>
+        {
+            "nodes": [
+                {"id":"A0", "x": 80, "y": 140, "base": true}, 
+                {"id":"A", "x": 100, "y": 80},
+                {"id":"B0","x": -60, "y": 100, "base": true},
+                {"id":"B", "x": 0, "y": 160},
+                {"id":"D", "x": -120, "y": 160},
+                {"id":"E", "x": -120, "y": 40},
+                {"id":"C", "x": -10, "y": 0},
+                {"id":"F", "x": -120, "y": -120}
+            ],
+            "constraints": [
+                {"id":"a","p1":"A0","p2":"A","len":{"type":"const"},"ori":{"type":"drive","repeat":100,"Dt":3,"Dz":-1 }},
+                {"id":"b","p1":"B0","p2":"B","len":{"type":"const"}},
+                {"id":"c","p1":"B0","p2":"D","len":{"type":"const"}},
+                {"id":"d","p1":"B","p2":"D","len":{"type":"const"}},
+                {"id":"e","p1":"A","p2":"B","len":{"type":"const"}},
+                {"id":"f","p1":"D","p2":"E","len":{"type":"const"}},
+                {"id":"g","p1":"B0","p2":"C","len":{"type":"const"}},
+                {"id":"h","p1":"E","p2":"C","len":{"type":"const"}},
+                {"id":"i","p1":"E","p2":"F","len":{"type":"const"}},
+                {"id":"k","p1":"C","p2":"F","len":{"type":"const"}},
+                {"id":"l","p1":"A","p2":"C","len":{"type":"const"}}
+            ],
+            "views": [
+                {"show": "pos", "of": "F", "as": "trace", "Dt":3, "fill":"orange"},
+                {"show": "vel", "of": "F", "as": "vector"}
+            ]
+        }  
+<span class="hljs-tag">&lt;/<span class="hljs-name">mec-2</span>&gt;</span>
+</div></code></pre>
+<p><strong>Ergebnis:</strong></p>
+<p>Für die von mec-2 erzeugte Koppelkurve ist es sofort festzustellen, dass diese keine D-förmige Kurve erstellt, auch keine Undulationspunkt ist sichtbar. Das heißt, alle erwähnte Anforderungen wurden nicht erfüllt. Die erzeuge Drehrichtung des Fußes ist in der Gegenrichtung zu der von der Kurbel beschriebene Bewegung. Deswegen ist eine Optimierung notwendig.
+Hier sind die ausgewählten Längen.</p>
+<p><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mover accent="true"><mi>a</mi><mo>¨</mo></mover><mi>n</mi><mi>g</mi><mi>e</mi><mo>=</mo><msqrt><mrow><mo stretchy="false">(</mo><mi>x</mi><mn>2</mn><mo>−</mo><mi>x</mi><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>+</mo><mo stretchy="false">(</mo><mi>y</mi><mn>2</mn><mo>−</mo><mi>y</mi><mn>1</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">Länge = \sqrt{(x2-x1)^2+(y2-y1)^2 }</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">L</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">a</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">¨</span></span></span></span></span></span></span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.24em;vertical-align:-0.30499999999999994em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.935em;"><span class="svg-align" style="top:-3.2em;"><span class="pstrut" style="height:3.2em;"></span><span class="mord" style="padding-left:1em;"><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal">x</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top:-2.8950000000000005em;"><span class="pstrut" style="height:3.2em;"></span><span class="hide-tail" style="min-width:1.02em;height:1.28em;"><svg width='400em' height='1.28em' viewBox='0 0 400000 1296' preserveAspectRatio='xMinYMin slice'><path d='M263,681c0.7,0,18,39.7,52,119
+c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
+c340,-704.7,510.7,-1060.3,512,-1067
+l0 -0
+c4.7,-7.3,11,-11,19,-11
+H40000v40H1012.3
+s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
+c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
+s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
+c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
+M1001 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.30499999999999994em;"><span></span></span></span></span></span></span></span></span></eq></p>
+<figure>
+<img src="../Bilder/Tabelle1.png">
+</figure>
+<h3 id="2-erste-optimierung">2.	Erste Optimierung</h3>
+<figure>
+<mec-2 width="500" height="500" grid cartesian nodelabels x0="300" y0="200">
+        {
+            "nodes": [
+                {"id":"A0", "x": 100, "y": 100, "base": true}, 
+                {"id":"A", "x": 80, "y": 60},
+                {"id":"B0","x": -40, "y": 100, "base": true},
+                {"id":"B", "x": -20, "y": 220},
+                {"id":"D", "x": -160, "y": 120},
+                {"id":"E", "x": -240, "y": 20},
+                {"id":"C", "x": -120, "y": 0},
+                {"id":"F", "x": -120, "y": -160}
+            ],
+            "constraints": [
+                {"id":"a","p1":"A0","p2":"A","len":{"type":"const"},"ori":{"type":"drive","repeat":100,"Dt":3,"Dz":-1 }},
+                {"id":"b","p1":"B0","p2":"B","len":{"type":"const"}},
+                {"id":"c","p1":"B0","p2":"D","len":{"type":"const"}},
+                {"id":"d","p1":"B","p2":"D","len":{"type":"const"}},
+                {"id":"e","p1":"A","p2":"B","len":{"type":"const"}},
+                {"id":"f","p1":"D","p2":"E","len":{"type":"const"}},
+                {"id":"g","p1":"B0","p2":"C","len":{"type":"const"}},
+                {"id":"h","p1":"E","p2":"C","len":{"type":"const"}},
+                {"id":"i","p1":"E","p2":"F","len":{"type":"const"}},
+                {"id":"k","p1":"C","p2":"F","len":{"type":"const"}},
+                {"id":"l","p1":"A","p2":"C","len":{"type":"const"}}
+            ],
+            "views": [
+                {"show": "pos", "of": "F", "as": "trace", "Dt":3, "fill":"red"},
+                {"show": "vel", "of": "F", "as": "vector"}
+            ]
+        }  
+        </mec-2>
+<h4 id="abb-6-ansicht-mit-mec-2"><strong>Abb. 6:</strong> Ansicht mit mec-2</h4>
+</figure>
+<p>Zur Visualierung dessen Ergebnis wird einen Browser gebraucht. Die dazu erstellte und geschriebene Code ist:</p>
+<pre><code class="code-line language-Html"><div><span class="hljs-tag">&lt;<span class="hljs-name">mec-2</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"500"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"500"</span> <span class="hljs-attr">grid</span> <span class="hljs-attr">cartesian</span> <span class="hljs-attr">nodelabels</span> <span class="hljs-attr">x0</span>=<span class="hljs-string">"300"</span> <span class="hljs-attr">y0</span>=<span class="hljs-string">"200"</span>&gt;</span>
+        {
+            "nodes": [
+                {"id":"A0", "x": 100, "y": 100, "base": true}, 
+                {"id":"A", "x": 80, "y": 60},
+                {"id":"B0","x": -40, "y": 100, "base": true},
+                {"id":"B", "x": -20, "y": 220},
+                {"id":"D", "x": -160, "y": 120},
+                {"id":"E", "x": -240, "y": 20},
+                {"id":"C", "x": -120, "y": 0},
+                {"id":"F", "x": -120, "y": -160}
+            ],
+            "constraints": [
+                {"id":"a","p1":"A0","p2":"A","len":{"type":"const"},"ori":{"type":"drive","repeat":100,"Dt":3,"Dz":-1 }},
+                {"id":"b","p1":"B0","p2":"B","len":{"type":"const"}},
+                {"id":"c","p1":"B0","p2":"D","len":{"type":"const"}},
+                {"id":"d","p1":"B","p2":"D","len":{"type":"const"}},
+                {"id":"e","p1":"A","p2":"B","len":{"type":"const"}},
+                {"id":"f","p1":"D","p2":"E","len":{"type":"const"}},
+                {"id":"g","p1":"B0","p2":"C","len":{"type":"const"}},
+                {"id":"h","p1":"E","p2":"C","len":{"type":"const"}},
+                {"id":"i","p1":"E","p2":"F","len":{"type":"const"}},
+                {"id":"k","p1":"C","p2":"F","len":{"type":"const"}},
+                {"id":"l","p1":"A","p2":"C","len":{"type":"const"}}
+            ],
+            "views": [
+                {"show": "pos", "of": "F", "as": "trace", "Dt":3, "fill":"red"},
+                {"show": "vel", "of": "F", "as": "vector"}
+            ]
+        }  
+        <span class="hljs-tag">&lt;/<span class="hljs-name">mec-2</span>&gt;</span>
+</div></code></pre>
+<p><strong>Ergebnis:</strong></p>
+<p>Im Vergleich zu der vorherigen Simulation lässt sich eine ganz große Änderung beobachten. Wir haben schon eine fast D-förmige Koppelkurve bekommen. Die Drehrichtungen (von der Kurbel und von dem Fuß) stimmen auch schon überein. Hier wurden die vorherigen Längen komplett geändert und angepasst. Hier unten sind die neuen Längen.</p>
+<p>Wir kommen jetzt zu der Rechnung (Einschätzung) der Schreitlänge und dessen Höhe.
+Für jedes Quadrat haben wir ungefähr 20m. Das heißt:</p>
+<p><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>c</mi><mi>h</mi><mi>r</mi><mi>i</mi><mi>t</mi><mi>t</mi><mi>l</mi><mover accent="true"><mi>a</mi><mo>¨</mo></mover><mi>n</mi><mi>g</mi><mi>e</mi><mo>=</mo><mn>9</mn><mo>∗</mo><mn>20</mn><mi>m</mi><mi>m</mi><mo>=</mo><mn>180</mn><mi>m</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Schrittlänge = 9 * 20mm = 180mm</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">c</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">a</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">¨</span></span></span></span></span></span></span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord mathnormal">m</span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">8</span><span class="mord">0</span><span class="mord mathnormal">m</span><span class="mord mathnormal">m</span></span></span></span></eq></p>
+<p><eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mover accent="true"><mi>o</mi><mo>¨</mo></mover><mi>h</mi><mi>e</mi><mo>=</mo><mn>3</mn><mo separator="true">,</mo><mn>5</mn><mo>∗</mo><mn>20</mn><mi>m</mi><mi>m</mi><mo>=</mo><mn>70</mn><mi>m</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Höhe = 3,5 * 20mm = 70mm</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">o</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">¨</span></span></span></span></span></span></span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span><span class="mord mathnormal">m</span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span><span class="mord">0</span><span class="mord mathnormal">m</span><span class="mord mathnormal">m</span></span></span></span></eq></p>
+<figure>
+<img src="../Bilder/Abbildung7.png">
+<h4 id="abb-7-analyse-der-schreitlc3a4nge-1"><strong>Abb. 7:</strong> Analyse der Schreitlänge 1</h4>
+</figure>
+<h3 id="3-zweite-optimierung">3.	Zweite Optimierung</h3>
+<figure>
+<mec-2 width="500" height="500" grid cartesian nodelabels x0="300" y0="200">
+ {
+            "nodes": [
+                {"id":"A0", "x": 100, "y": 100, "base": true}, 
+                {"id":"A", "x": 60, "y": 60},
+                {"id":"B0","x": -40, "y": 100, "base": true},
+                {"id":"B", "x": -20, "y": 220},
+                {"id":"D", "x": -160, "y": 120},
+                {"id":"E", "x": -240, "y": 20},
+                {"id":"C", "x": -120, "y": 0},
+                {"id":"F", "x": -120, "y": -160}
+            ],
+            "constraints": [
+                {"id":"a","p1":"A0","p2":"A","len":{"type":"const"},"ori":{"type":"drive","repeat":100,"Dt":3,"Dz":-1 }},
+                {"id":"b","p1":"B0","p2":"B","len":{"type":"const"}},
+                {"id":"c","p1":"B0","p2":"D","len":{"type":"const"}},
+                {"id":"d","p1":"B","p2":"D","len":{"type":"const"}},
+                {"id":"e","p1":"A","p2":"B","len":{"type":"const"}},
+                {"id":"f","p1":"D","p2":"E","len":{"type":"const"}},
+                {"id":"g","p1":"B0","p2":"C","len":{"type":"const"}},
+                {"id":"h","p1":"E","p2":"C","len":{"type":"const"}},
+                {"id":"i","p1":"E","p2":"F","len":{"type":"const"}},
+                {"id":"k","p1":"C","p2":"F","len":{"type":"const"}},
+                {"id":"l","p1":"A","p2":"C","len":{"type":"const"}}
+            ],
+            "views": [
+                {"show": "pos", "of": "F", "as": "trace", "Dt":3, "fill":"red"},
+                {"show": "vel", "of": "F", "as": "vector"}
+            ]
+        }  
+        </mec-2>
+<h4 id="abb-8-zweite-optimierung"><strong>Abb. 8:</strong> Zweite Optimierung</h4>
+</figure>
+<p>Zur Visualierung dessen Ergebnis wird einen Browser gebraucht. Die dazu erstellte und geschriebene Code ist:</p>
+<pre><code class="code-line language-Html"><div><span class="hljs-tag">&lt;<span class="hljs-name">mec-2</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"500"</span> <span class="hljs-attr">height</span>=<span class="hljs-string">"500"</span> <span class="hljs-attr">grid</span> <span class="hljs-attr">cartesian</span> <span class="hljs-attr">nodelabels</span> <span class="hljs-attr">x0</span>=<span class="hljs-string">"300"</span> <span class="hljs-attr">y0</span>=<span class="hljs-string">"200"</span>&gt;</span>
+ {
+            "nodes": [
+                {"id":"A0", "x": 100, "y": 100, "base": true}, 
+                {"id":"A", "x": 60, "y": 60},
+                {"id":"B0","x": -40, "y": 100, "base": true},
+                {"id":"B", "x": -20, "y": 220},
+                {"id":"D", "x": -160, "y": 120},
+                {"id":"E", "x": -240, "y": 20},
+                {"id":"C", "x": -120, "y": 0},
+                {"id":"F", "x": -120, "y": -160}
+            ],
+            "constraints": [
+                {"id":"a","p1":"A0","p2":"A","len":{"type":"const"},"ori":{"type":"drive","repeat":100,"Dt":3,"Dz":-1 }},
+                {"id":"b","p1":"B0","p2":"B","len":{"type":"const"}},
+                {"id":"c","p1":"B0","p2":"D","len":{"type":"const"}},
+                {"id":"d","p1":"B","p2":"D","len":{"type":"const"}},
+                {"id":"e","p1":"A","p2":"B","len":{"type":"const"}},
+                {"id":"f","p1":"D","p2":"E","len":{"type":"const"}},
+                {"id":"g","p1":"B0","p2":"C","len":{"type":"const"}},
+                {"id":"h","p1":"E","p2":"C","len":{"type":"const"}},
+                {"id":"i","p1":"E","p2":"F","len":{"type":"const"}},
+                {"id":"k","p1":"C","p2":"F","len":{"type":"const"}},
+                {"id":"l","p1":"A","p2":"C","len":{"type":"const"}}
+            ],
+            "views": [
+                {"show": "pos", "of": "F", "as": "trace", "Dt":3, "fill":"red"},
+                {"show": "vel", "of": "F", "as": "vector"},
+                {"as": "chart", "x": 140, "y": 275, "Dt": 1.9,"show": "wt", "of": "l"}
+            ]
+        }  
+<span class="hljs-tag">&lt;/<span class="hljs-name">mec-2</span>&gt;</span>
+</div></code></pre>
+<p><strong>Ergebnis:</strong></p>
+<p>Nach Anpassung der unterschiedlichen Längen sind wir auf eine sehr gute Verbesserung unserer Koppelkurve. Hier haben wir auch eine längere Schrittlänge und wir haben auch die Höhe reduziert.</p>
+<figure>
+<img src="../Bilder/Tabelle3.png">
+</figure>
+<p>Wir kommen jetzt zu der Rechnung (Einschätzung) der Schreitlänge und dessen Höhe.
+Für jedes Quadrat haben wir ungefähr <strong>20m</strong>. Das heißt:
+<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>c</mi><mi>h</mi><mi>r</mi><mi>i</mi><mi>t</mi><mi>t</mi><mi>l</mi><mover accent="true"><mi>a</mi><mo>¨</mo></mover><mi>n</mi><mi>g</mi><mi>e</mi><mo>=</mo><mn>11</mn><mo separator="true">,</mo><mn>5</mn><mi>x</mi><mn>20</mn><mi>m</mi><mi>m</mi><mo>=</mo><mn>230</mn><mi>m</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Schrittlänge = 11,5 x 20mm = 230mm</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">c</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">a</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">¨</span></span></span></span></span></span></span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">5</span><span class="mord mathnormal">x</span><span class="mord">2</span><span class="mord">0</span><span class="mord mathnormal">m</span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">3</span><span class="mord">0</span><span class="mord mathnormal">m</span><span class="mord mathnormal">m</span></span></span></span></eq>
+<eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mover accent="true"><mi>o</mi><mo>¨</mo></mover><mi>h</mi><mi>e</mi><mo>=</mo><mi>c</mi><mi>a</mi><mi mathvariant="normal">.</mi><mn>40</mn><mi>m</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">Höhe = ca. 40mm</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.66786em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">o</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">¨</span></span></span></span></span></span></span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">a</span><span class="mord">.</span><span class="mord">4</span><span class="mord">0</span><span class="mord mathnormal">m</span><span class="mord mathnormal">m</span></span></span></span></eq></p>
+<figure>
+<img src="../Bilder/Abbildung9.png">
+<h4 id="abb-9-analyse-der-schreitlc3a4nge-2"><strong>Abb. 9:</strong> Analyse der Schreitlänge 2</h4>
+</figure>
+
+</article>
+</main>
+<script src="../js/g2.html.js"></script>
+<script src="../js/mec2.html.js"></script>
+</body>
+</html>
